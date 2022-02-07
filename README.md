@@ -1,6 +1,10 @@
 # react-native-jitsi-meet
 React native wrapper for Jitsi Meet SDK
 
+## Important notice
+
+Jitsi Meet SDK is a packed React Native SDK. Running react-native-jitsi-meet will run this React Native SDK inside your React Native app. We know that this is suboptimal but sadly we did not find any other solution without massive rewrite of Jitsi Meet SDK. Compatibility with other libraries used internally by Jitsi Meet SDK might be broken (version mismatch) or you might experience performance issues or touch issues in some edge cases.
+
 ## Install
 
 `npm install react-native-jitsi-meet --save` 
@@ -49,7 +53,37 @@ const VideoCall = () => {
     setTimeout(() => {
       const url = 'https://meet.jit.si/deneme'; // can also be only room name and will connect to jitsi meet servers
       const userInfo = { displayName: 'User', email: 'user@example.com', avatar: 'https:/gravatar.com/avatar/abc123' };
-      JitsiMeet.call(url, userInfo);
+      const options = {
+        audioMuted: false,
+        audioOnly: false,
+        videoMuted: false,
+        subject: "your subject",
+        token: "your token"
+      }
+      const meetFeatureFlags = {
+        addPeopleEnabled: true,
+        calendarEnabled: true,
+        callIntegrationEnabled: true,
+        chatEnabled: true,
+        closeCaptionsEnabled: true,
+        inviteEnabled: true,
+        androidScreenSharingEnabled: true,
+        liveStreamingEnabled: true,
+        meetingNameEnabled: true,
+        meetingPasswordEnabled: true,
+        pipEnabled: true,
+        kickOutEnabled: true,
+        conferenceTimerEnabled: true,
+        videoShareButtonEnabled: true,
+        recordingEnabled: true,
+        reactionsEnabled: true,
+        raiseHandEnabled: true,
+        tileViewEnabled: true,
+        toolboxAlwaysVisible: false,
+        toolboxEnabled: true,
+        welcomePageEnabled: false,
+      }
+      JitsiMeet.call(url, userInfo, options. meetFeatureFlags);
       /* You can also use JitsiMeet.audioCall(url) for audio only call */
       /* You can programmatically end the call with JitsiMeet.endCall() */
     }, 1000);
