@@ -99,7 +99,9 @@ RCT_EXPORT_METHOD(
               [builder setFeatureFlag:@"tile-view.enabled" withBoolean:[[meetFeatureFlags objectForKey:@"tileViewEnabled"] boolValue]];
             if(meetFeatureFlags[@"welcomePageEnabled"] != NULL)
               [builder setFeatureFlag:@"welcomepage.enabled" withBoolean:[[meetFeatureFlags objectForKey:@"welcomePageEnabled"] boolValue]];
-
+            if([userInfo[@"iamHost"] boolValue]) {
+              [builder setFeatureFlag:@"imHostFromSdk" withBoolean:YES];
+            }
             builder.userInfo = _userInfo;
         }];
         [jitsiMeetView join:options];
